@@ -2,9 +2,16 @@ import React from "react";
 import styled from "styled-components";
 import { LibrarySongs, LineSeparator } from "..";
 
-const Library = ({ audioRef, songs, setCurrentSong, isPlaying, setSongs }) => {
+const Library = ({
+    audioRef,
+    songs,
+    setCurrentSong,
+    isPlaying,
+    setSongs,
+    libraryVisible,
+}) => {
     return (
-        <Container>
+        <Container className={libraryVisible ? "toggle-library" : ""}>
             <h2>Library</h2>
             <LineSeparator />
             {songs.map((song) => (
@@ -28,6 +35,9 @@ export default Library;
 const Container = styled.div`
     scrollbar-width: thin;
     scrollbar-color: rgba(155, 155, 155, 0.5) transparent;
+    transform: translateX(-100%);
+    opacity: 0;
+    transition: all 0.5s ease;
     ::-webkit-scrollbar {
         width: 5px;
     }
