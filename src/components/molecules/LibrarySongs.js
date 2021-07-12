@@ -8,6 +8,7 @@ const LibrarySongs = ({
     isPlaying,
     songs,
     id,
+    setSongs,
 }) => {
     const songSelectHandler = () => {
         setCurrentSong(song);
@@ -25,6 +26,7 @@ const LibrarySongs = ({
                 };
             }
         });
+        setSongs(newSongs);
         // check the song
         audioRef.current.play();
         if (isPlaying) {
