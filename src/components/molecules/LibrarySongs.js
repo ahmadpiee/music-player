@@ -10,10 +10,9 @@ const LibrarySongs = ({
     id,
     setSongs,
 }) => {
-    const songSelectHandler = () => {
-        setCurrentSong(song);
-        // add active song
-        const newSongs = songs.map((song) => {
+    // select handler on library
+    const songSelectHandler = async () => {
+        const newSongs = await songs.map((song) => {
             if (song.id === id) {
                 return {
                     ...song,
@@ -26,17 +25,11 @@ const LibrarySongs = ({
                 };
             }
         });
+        setCurrentSong(song);
         setSongs(newSongs);
-        // check the song
-        audioRef.current.play();
-        if (isPlaying) {
-            const playNextSong = audioRef.current.play();
-            if (playNextSong !== undefined)
-                playNextSong.then((audio) => {
-                    audioRef.current.play();
-                });
-        }
     };
+    if (isPlaying) audioRef.current.play();
+
     return (
         <Container>
             <div
@@ -62,14 +55,13 @@ const Container = styled.div`
         display: flex;
         align-items: center;
         img {
-            width: 8vmax;
+            width: 10vmax;
             border-radius: 5px;
         }
         :hover {
             background: #e3fffd;
         }
         .desc-container {
-            display: flex;
             margin-left: 2rem;
             flex-direction: column;
             h4 {

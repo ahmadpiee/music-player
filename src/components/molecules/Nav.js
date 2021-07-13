@@ -6,7 +6,10 @@ import styled from "styled-components";
 const Nav = ({ libraryVisible, setLibraryVisible }) => {
     return (
         <Navbar>
-            <h1>Metal Records</h1>
+            <div>
+                <img src="../../assets/images/pentagram.png" alt="logo" />
+                <h1>Metal Movement</h1>
+            </div>
             <button onClick={() => setLibraryVisible(!libraryVisible)}>
                 Library
                 <FontAwesomeIcon icon={faMusic} />
@@ -18,14 +21,27 @@ const Nav = ({ libraryVisible, setLibraryVisible }) => {
 export default Nav;
 
 const Navbar = styled.nav`
-    min-height: 10vh;
+    padding: 1rem 3vmax 1.5rem;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    div {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
     h1 {
-        font-size: xx-large;
+        font-size: x-large;
+    }
+    img {
+        margin-right: 1rem;
+        height: 3rem;
     }
     button {
+        @media screen and (max-width: 768px) {
+            z-index: 10;
+        }
+        z-index: 1;
         font-size: medium;
         background: transparent;
         border: none;
@@ -35,7 +51,7 @@ const Navbar = styled.nav`
         border-radius: 5px;
         transition: all 0.5s ease;
         :hover {
-            background: #6d6d6d;
+            background: #c7c7c7;
             color: white;
         }
     }

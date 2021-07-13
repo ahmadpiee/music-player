@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { LibrarySongs, LineSeparator } from "..";
+import { LibrarySongs } from "..";
 
 const Library = ({
     audioRef,
@@ -13,7 +13,6 @@ const Library = ({
     return (
         <Container className={libraryVisible ? "toggle-library" : ""}>
             <h2>Library</h2>
-            <LineSeparator />
             {songs.map((song) => (
                 <LibrarySongs
                     songs={songs}
@@ -36,8 +35,16 @@ const Container = styled.div`
     scrollbar-width: thin;
     scrollbar-color: rgba(155, 155, 155, 0.5) transparent;
     transform: translateX(-100%);
-    opacity: 0;
     transition: all 0.5s ease;
+    background-color: white;
+    overflow: scroll;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vmax;
+    height: 100%;
+    box-shadow: 2px 2px 10px #6a6a6a;
+    padding: 0 1rem 0 1rem;
     ::-webkit-scrollbar {
         width: 5px;
     }
@@ -49,17 +56,8 @@ const Container = styled.div`
         border-radius: 20px;
         border: transparent;
     }
-    overflow: scroll;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 20vmax;
-    height: 100%;
-    box-shadow: 2px 2px 10px #6a6a6a;
-    padding-left: 2rem;
-    padding-right: 2rem;
     h2 {
-        text-align: center;
+        text-align: start;
         margin: 2rem 0 1rem 0;
     }
     .selected {

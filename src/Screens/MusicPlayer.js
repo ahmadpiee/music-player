@@ -13,13 +13,30 @@ const MusicPlayer = () => {
     const [songInfo, setSongInfo] = useState({
         currentTime: 0,
         duration: 0,
+        animationPercentage: 0,
     });
-
-    const timeUpdateHandler = (e) => {
-        const current = e.target.currentTime;
-        const duration = e.target.duration;
-        setSongInfo({ ...songInfo, currentTime: current, duration });
+    const songAutoSkipHandler = async () => {
+        const currentIndex = songs.findIndex(
+            (song) => song.id === currentSong.id
+        );
+        setCurrentSong(songs[(currentIndex + 1) % songs.length]);
+        if (isPlaying) await audioRef.current.play();
     };
+    const timeUpdateHandler = async (e) => {
+        const current = await e.target.currentTime;
+        const duration = e.target.duration;
+        // percentage of duration
+        const roundedCurrent = Math.round(current);
+        const roundedDuration = Math.round(duration);
+        const animation = Math.round((roundedCurrent / roundedDuration) * 100);
+        setSongInfo({
+            ...songInfo,
+            currentTime: current,
+            duration,
+            animationPercentage: animation,
+        });
+    };
+
     return (
         <Container>
             <Nav
@@ -34,6 +51,9 @@ const MusicPlayer = () => {
                 currentSong={currentSong}
                 setSongInfo={setSongInfo}
                 songInfo={songInfo}
+                songs={songs}
+                setCurrentSong={setCurrentSong}
+                setSongs={setSongs}
             />
             <Library
                 audioRef={audioRef}
@@ -48,6 +68,7 @@ const MusicPlayer = () => {
                 onLoadedMetadata={timeUpdateHandler}
                 ref={audioRef}
                 src={currentSong.audio}
+                onEnded={songAutoSkipHandler}
             ></audio>
         </Container>
     );
@@ -60,6 +81,7 @@ const Container = styled.div`
     padding: 0;
     box-sizing: border-box;
     font-family: "Lato", sans-serif;
+    text,
     h1,
     h2,
     h3,

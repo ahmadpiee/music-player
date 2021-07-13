@@ -20,6 +20,10 @@ const Container = styled.div`
     align-items: center;
     flex-direction: column;
     img {
+        @media screen and (max-width: 768px) {
+            width: 40vmax;
+            height: 40vmax;
+        }
         height: 18vmax;
         width: 18vmax;
         border-radius: 50%;
