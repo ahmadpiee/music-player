@@ -32,6 +32,9 @@ const Library = ({
 export default Library;
 
 const Container = styled.div`
+    @media screen and (max-width: 768px) {
+        width: 100%;
+    }
     scrollbar-width: thin;
     scrollbar-color: rgba(155, 155, 155, 0.5) transparent;
     transform: translateX(-100%);
@@ -41,7 +44,7 @@ const Container = styled.div`
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vmax;
+    width: 25vmax;
     height: 100%;
     box-shadow: 2px 2px 10px #6a6a6a;
     padding: 0 1rem 0 1rem;

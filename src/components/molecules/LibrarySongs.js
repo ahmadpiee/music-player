@@ -51,11 +51,12 @@ export default LibrarySongs;
 const Container = styled.div`
     padding: 2rem 0 1rem 0;
     .song-container {
+        transition: background 0.5s ease;
         cursor: pointer;
         display: flex;
         align-items: center;
         img {
-            width: 10vmax;
+            width: 12vmax;
             border-radius: 5px;
         }
         :hover {

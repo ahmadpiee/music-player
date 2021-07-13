@@ -39,37 +39,39 @@ const MusicPlayer = () => {
 
     return (
         <Container>
-            <Nav
-                libraryVisible={libraryVisible}
-                setLibraryVisible={setLibraryVisible}
-            />
-            <Song currentSong={currentSong} />
-            <Player
-                audioRef={audioRef}
-                isPlaying={isPlaying}
-                setIsPlaying={setIsPlaying}
-                currentSong={currentSong}
-                setSongInfo={setSongInfo}
-                songInfo={songInfo}
-                songs={songs}
-                setCurrentSong={setCurrentSong}
-                setSongs={setSongs}
-            />
-            <Library
-                audioRef={audioRef}
-                songs={songs}
-                setCurrentSong={setCurrentSong}
-                isPlaying={isPlaying}
-                setSongs={setSongs}
-                libraryVisible={libraryVisible}
-            />
-            <audio
-                onTimeUpdate={timeUpdateHandler}
-                onLoadedMetadata={timeUpdateHandler}
-                ref={audioRef}
-                src={currentSong.audio}
-                onEnded={songAutoSkipHandler}
-            ></audio>
+            <div className={`App ${libraryVisible ? "library-active" : null}`}>
+                <Nav
+                    libraryVisible={libraryVisible}
+                    setLibraryVisible={setLibraryVisible}
+                />
+                <Song currentSong={currentSong} />
+                <Player
+                    audioRef={audioRef}
+                    isPlaying={isPlaying}
+                    setIsPlaying={setIsPlaying}
+                    currentSong={currentSong}
+                    setSongInfo={setSongInfo}
+                    songInfo={songInfo}
+                    songs={songs}
+                    setCurrentSong={setCurrentSong}
+                    setSongs={setSongs}
+                />
+                <Library
+                    audioRef={audioRef}
+                    songs={songs}
+                    setCurrentSong={setCurrentSong}
+                    isPlaying={isPlaying}
+                    setSongs={setSongs}
+                    libraryVisible={libraryVisible}
+                />
+                <audio
+                    onTimeUpdate={timeUpdateHandler}
+                    onLoadedMetadata={timeUpdateHandler}
+                    ref={audioRef}
+                    src={currentSong.audio}
+                    onEnded={songAutoSkipHandler}
+                ></audio>
+            </div>
         </Container>
     );
 };
@@ -93,5 +95,11 @@ const Container = styled.div`
     .toggle-library {
         transform: translateX(0%);
         opacity: 1;
+    }
+    .App {
+        transition: all 0.5s ease;
+    }
+    .library-active {
+        margin-left: 20%;
     }
 `;

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -20,9 +20,9 @@ const Player = ({
     currentSong,
 }) => {
     // set selected song handler
-    useEffect(() => {
+    const activeLibraryHandler = (nextPrev) => {
         const newSongs = songs.map((songData) => {
-            if (songData.id === currentSong.id) {
+            if (songData.id === nextPrev.id) {
                 return {
                     ...songData,
                     active: true,
@@ -35,8 +35,7 @@ const Player = ({
             }
         });
         setSongs(newSongs);
-    }, [currentSong]);
-
+    };
     // configuration of duration
     const getTime = (time) => {
         return (
@@ -57,14 +56,17 @@ const Player = ({
         );
         if (direction === "skip-forward") {
             setCurrentSong(songs[(currentIndex + 1) % songs.length]);
+            activeLibraryHandler(songs[(currentIndex + 1) % songs.length]);
         }
         if (direction === "skip-back") {
             if ((currentIndex - 1) % songs.length === -1) {
                 setCurrentSong(songs[songs.length - 1]);
+                activeLibraryHandler(songs[songs.length - 1]);
                 if (isPlaying) audioRef.current.play();
                 return;
             }
             setCurrentSong(songs[(currentIndex - 1) % songs.length]);
+            activeLibraryHandler(songs[(currentIndex - 1) % songs.length]);
         }
         if (isPlaying) audioRef.current.play();
     };
@@ -178,6 +180,11 @@ const TimeControl = styled.div`
         -webkit-appearance: none;
         width: 16px;
         height: 16px;
+    }
+    input[type="range"]::-moz-range-thumb {
+        -webkit-appearance: none;
+        background: transparent;
+        border: none;
     }
     p {
         padding: 1rem;
