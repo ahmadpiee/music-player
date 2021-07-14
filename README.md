@@ -1,4 +1,4 @@
 MINI PROJECT CALLED "MUSIC PLAYER"
 
-to see the project go to:
+the project libk:
 https://metalmovement.herokuapp.com/
